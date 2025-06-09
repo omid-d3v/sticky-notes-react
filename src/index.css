@@ -1,0 +1,223 @@
+
+
+/* General Styles */
+body {
+  font-family: 'Vazirmatn', Arial, sans-serif;
+  background-color: #fff5e1; /* Creamy background for a soft feel */
+  color: #333;
+  margin: 0;
+  padding: 20px;
+  line-height: 1.6;
+  direction: rtl; /* Right-to-left for Persian */
+}
+
+header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* Notes Container - For index.html */
+#notes-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px; /* Space between notes */
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Individual Note Styling - For index.html */
+.note {
+  background-color: #ffffff; /* White notes */
+  color: #333;
+  border-radius: 10px;
+  padding: 15px 20px 20px 20px; /* More padding at bottom for timestamp */
+  width: 280px; /* Fixed width for better grid alignment */
+  min-height: 200px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0,0,0,0.08);
+  position: relative;
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Ensures pin doesn't overflow weirdly */
+}
+
+.note:hover {
+  transform: translateY(-5px) scale(1.02) !important; /* Override GSAP rotation for hover effect */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15), 0 6px 10px rgba(0,0,0,0.1);
+}
+
+.note .avatar-container {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto 12px auto; /* Center avatar */
+  border: 3px solid #ffda77; /* Gold border for avatar */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.note .avatar-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.note .name {
+  font-weight: bold;
+  font-size: 1.15rem;
+  color: #e85a4f; /* Coral red for name */
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.note .message {
+  font-size: 1rem;
+  color: #5a5a5a; /* Dark gray for message */
+  flex-grow: 1; /* Allows message to take available space */
+  margin-bottom: 10px;
+  word-wrap: break-word;
+  white-space: pre-wrap; /* Preserve line breaks from textarea */
+}
+
+.note .timestamp {
+  font-size: 0.75rem;
+  color: #aaa;
+  text-align: left; /* Align timestamp to the left (visual right in RTL) */
+  margin-top: auto; /* Pushes to the bottom */
+}
+
+/* Pin element for notes */
+.note .pin {
+  width: 20px;
+  height: 20px;
+  background-color: #ff5722; /* Bright orange pin */
+  border-radius: 50%;
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  border: 2px solid white;
+}
+.note .pin::before { /* Adding a little shine to the pin */
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 6px;
+    height: 6px;
+    background: rgba(255,255,255,0.5);
+    border-radius: 50%;
+}
+
+
+/* Form Styling - For add.html */
+#note-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px; /* Space between form elements */
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 6px;
+  font-weight: bold;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+#note-form input[type="text"],
+#note-form input[type="url"],
+#note-form textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: 'Vazirmatn', Arial, sans-serif;
+  box-sizing: border-box; /* Important for width calculation */
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+#note-form input[type="text"]:focus,
+#note-form input[type="url"]:focus,
+#note-form textarea:focus {
+  outline: none;
+  border-color: #ff8a65; /* Light coral */
+  box-shadow: 0 0 0 3px rgba(255, 138, 101, 0.25);
+}
+
+#note-form textarea {
+  resize: vertical; /* Allow vertical resize only */
+  min-height: 100px;
+}
+
+#note-form small {
+    font-size: 0.8rem;
+    color: #777;
+    margin-top: 4px;
+}
+
+#note-form button[type="submit"] {
+  background: linear-gradient(45deg, #ff8a65, #ff7043); /* Coral gradient */
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 25px; /* Pill shape button */
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: bold;
+  font-family: 'Vazirmatn', Arial, sans-serif;
+  transition: background 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 10px rgba(255, 112, 67, 0.3);
+}
+
+#note-form button[type="submit"]:hover:not(:disabled) {
+  background: linear-gradient(45deg, #ff7043, #e65100); /* Darker coral gradient */
+  transform: translateY(-2px);
+}
+
+#note-form button[type="submit"]:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .note {
+    width: calc(50% - 30px); /* Two notes per row on tablets */
+    min-width: 220px;
+  }
+  .app-title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  #notes-container {
+    padding: 10px;
+    gap: 15px;
+  }
+  .note {
+    width: calc(100% - 20px); /* One note per row on mobile */
+    margin-left: auto;
+    margin-right: auto;
+  }
+   .form-container {
+    padding: 20px;
+  }
+  .app-title {
+    font-size: 1.8rem;
+  }
+  #note-form button[type="submit"] {
+    padding: 10px 15px;
+    font-size: 1rem;
+  }
+}
