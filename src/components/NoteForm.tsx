@@ -48,7 +48,7 @@ const NoteForm: React.FC<NoteFormProps> = ({ editingNote, isSubmitting, onSubmit
         <label htmlFor="imageURL">لینک عکس پروفایل (اختیاری):</label>
         <input type="url" id="imageURL" value={imageURL} onChange={e => setImageURL(e.target.value)} placeholder="https://example.com/avatar.jpg" />
       </div>
-      <button type="submit" disabled={isSubmitting}>
+      <button type="submit" disabled={isSubmitting} className="btn btn-primary">
         {isSubmitting ? 'در حال پردازش...' : (editingNote ? 'به‌روزرسانی پیام 🔄' : 'ارسال پیام ✨')}
       </button>
       {editingNote && (
