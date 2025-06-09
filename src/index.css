@@ -1,107 +1,342 @@
+:root {
+  --primary-color: #3f51b5;         /* آبی ایندیگو */
+  --primary-color-dark: #303f9f;
+  --accent-color: #d81b60;          /* صورتی پررنگ */
+  --accent-color-light: #ff8a65;    /* نارنجی روشن */
+  --success-color: #43a047;         /* سبز */
+  --warning-color: #ffb300;         /* زرد */
+  --danger-color: #e53935;          /* قرمز */
+  --text-color: #212121;
+  --text-color-light: #616161;
+  --bg-color: #f5f7fa;              /* پس‌زمینه خیلی روشن */
+  --card-bg-color: rgba(255, 255, 255, 0.95);
+  --border-color: #e0e0e0;
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 15px rgba(0,0,0,0.1);
+  --border-radius: 12px;
+}
 
-
-/* General Styles */
+/* --- استایل‌های عمومی و بدنه --- */
 body {
   font-family: 'Vazirmatn', Arial, sans-serif;
-  background-color: #fff5e1; /* Creamy background for a soft feel */
-  color: #333;
+  background-color: var(--bg-color);
+  color: var(--text-color);
   margin: 0;
   padding: 20px;
   line-height: 1.6;
-  direction: rtl; /* Right-to-left for Persian */
+  direction: rtl;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-header {
-  text-align: center;
-  margin-bottom: 30px;
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.2s ease;
 }
 
-/* Notes Container - For index.html */
-#notes-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 25px; /* Space between notes */
-  padding: 20px;
-  max-width: 1200px;
+a:hover {
+  color: var(--primary-color-dark);
+}
+
+/* --- کانتینرهای اصلی صفحه --- */
+.page-container {
+  width: 100%;
+  max-width: 900px;
   margin: 0 auto;
-}
-
-/* Individual Note Styling - For index.html */
-.note {
-  background-color: #ffffff; /* White notes */
-  color: #333;
-  border-radius: 10px;
-  padding: 15px 20px 20px 20px; /* More padding at bottom for timestamp */
-  width: 280px; /* Fixed width for better grid alignment */
-  min-height: 200px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0,0,0,0.08);
-  position: relative;
-  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
   display: flex;
   flex-direction: column;
-  overflow: hidden; /* Ensures pin doesn't overflow weirdly */
+  gap: 30px;
+}
+
+.form-container,
+.board-selector-container,
+#admin-notes-list-container {
+  background: var(--card-bg-color);
+  padding: 25px 30px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(10px);
+}
+
+.section-title {
+  text-align: center;
+  color: var(--primary-color);
+  margin-top: 0;
+  margin-bottom: 25px;
+  font-size: 1.8rem;
+}
+
+
+/* --- استایل‌های فرم‌ها (ورودی‌ها و دکمه‌ها) --- */
+#note-form, #board-selector-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: var(--text-color-light);
+  font-size: 0.95rem;
+}
+
+input[type="text"],
+input[type="url"],
+input[type="email"],
+input[type="password"],
+textarea {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: 'Vazirmatn', Arial, sans-serif;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  background-color: #fff;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(63, 81, 181, 0.2);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* --- استایل دکمه‌های اصلی و ثانویه --- */
+.btn {
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.05rem;
+  font-weight: bold;
+  font-family: 'Vazirmatn', Arial, sans-serif;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background: linear-gradient(45deg, var(--primary-color), var(--primary-color-dark));
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(63, 81, 181, 0.3);
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(63, 81, 181, 0.4);
+}
+
+.btn-primary:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  opacity: 0.7;
+  box-shadow: none;
+}
+
+.btn-secondary {
+  background-color: var(--card-bg-color);
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+}
+.btn-secondary:hover {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+
+/* --- کارت‌های مدیریت (لیست تخته‌ها و یادداشت‌ها) --- */
+#admin-notes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.admin-note-item {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: var(--border-radius);
+  border: 1px solid #f0f0f0;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.admin-note-item:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.admin-note-item .note-content { flex-grow: 1; }
+.admin-note-item .note-name { font-weight: bold; color: var(--primary-color); font-size: 1.1rem; }
+.admin-note-item .note-message { font-size: 0.95rem; color: var(--text-color-light); white-space: pre-wrap; }
+.admin-note-item .note-actions { display: flex; gap: 10px; }
+.admin-note-item .board-id { font-weight: bold; font-size: 1.1rem; font-family: monospace; color: var(--accent-color); }
+
+.action-btn {
+  padding: 8px 15px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.btn-view { background-color: var(--warning-color); color: var(--text-color); }
+.btn-manage { background-color: var(--success-color); color: #fff; }
+.btn-edit { background-color: var(--primary-color); color: #fff; }
+.btn-delete { background-color: var(--danger-color); color: #fff; }
+
+
+/* --- هدر و اطلاعات بالای صفحه مدیریت --- */
+#current-board-info {
+  background-color: var(--card-bg-color);
+  padding: 15px 20px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+#current-board-info .user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+#current-board-info .logout-btn {
+    all: unset;
+    cursor: pointer;
+    color: var(--danger-color);
+    font-weight: bold;
+    padding: 5px 10px;
+    border: 1px solid var(--danger-color);
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+#current-board-info .logout-btn:hover {
+    background-color: var(--danger-color);
+    color: #fff;
+}
+
+
+/* --- باکس نمایش پیام --- */
+#message-box {
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid transparent;
+}
+#message-box.success { background-color: #e8f5e9; color: #2e7d32; border-color: #a5d6a7; }
+#message-box.error { background-color: #ffebee; color: #c62828; border-color: #ef9a9a; }
+
+/* --- استایل‌های صفحه عمومی نمایش یادداشت‌ها --- */
+#notes-container {
+    /* ... (استایل قبلی خوب بود، آن را حفظ می‌کنیم) ... */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* ... (بقیه استایل‌های .note, .pin و غیره بدون تغییر باقی می‌مانند) ... */
+.note {
+    background-color: #ffffff;
+    color: #333;
+    border-radius: 10px;
+    padding: 15px 20px 20px 20px;
+    width: 280px;
+    min-height: 200px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0,0,0,0.08);
+    position: relative;
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
 .note:hover {
-  transform: translateY(-5px) scale(1.02) !important; /* Override GSAP rotation for hover effect */
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15), 0 6px 10px rgba(0,0,0,0.1);
+    transform: translateY(-5px) scale(1.02) !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15), 0 6px 10px rgba(0,0,0,0.1);
 }
 
 .note .avatar-container {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  overflow: hidden;
-  margin: 0 auto 12px auto; /* Center avatar */
-  border: 3px solid #ffda77; /* Gold border for avatar */
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto 12px auto;
+    border: 3px solid #ffda77;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .note .avatar-container img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .note .name {
-  font-weight: bold;
-  font-size: 1.15rem;
-  color: #e85a4f; /* Coral red for name */
-  text-align: center;
-  margin-bottom: 8px;
+    font-weight: bold;
+    font-size: 1.15rem;
+    color: #e85a4f;
+    text-align: center;
+    margin-bottom: 8px;
 }
 
 .note .message {
-  font-size: 1rem;
-  color: #5a5a5a; /* Dark gray for message */
-  flex-grow: 1; /* Allows message to take available space */
-  margin-bottom: 10px;
-  word-wrap: break-word;
-  white-space: pre-wrap; /* Preserve line breaks from textarea */
+    font-size: 1rem;
+    color: #5a5a5a;
+    flex-grow: 1;
+    margin-bottom: 10px;
+    word-wrap: break-word;
+    white-space: pre-wrap;
 }
 
 .note .timestamp {
-  font-size: 0.75rem;
-  color: #aaa;
-  text-align: left; /* Align timestamp to the left (visual right in RTL) */
-  margin-top: auto; /* Pushes to the bottom */
+    font-size: 0.75rem;
+    color: #aaa;
+    text-align: left;
+    margin-top: auto;
 }
 
-/* Pin element for notes */
 .note .pin {
-  width: 20px;
-  height: 20px;
-  background-color: #ff5722; /* Bright orange pin */
-  border-radius: 50%;
-  position: absolute;
-  top: -8px;
-  left: 50%;
-  transform: translateX(-50%);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-  border: 2px solid white;
+    width: 20px;
+    height: 20px;
+    background-color: #ff5722;
+    border-radius: 50%;
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    border: 2px solid white;
 }
-.note .pin::before { /* Adding a little shine to the pin */
+.note .pin::before {
     content: '';
     position: absolute;
     top: 3px;
@@ -112,112 +347,10 @@ header {
     border-radius: 50%;
 }
 
-
-/* Form Styling - For add.html */
-#note-form {
-  display: flex;
-  flex-direction: column;
-  gap: 18px; /* Space between form elements */
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-}
-
-.form-group label {
-  margin-bottom: 6px;
-  font-weight: bold;
-  color: #555;
-  font-size: 0.95rem;
-}
-
-#note-form input[type="text"],
-#note-form input[type="url"],
-#note-form textarea {
-  width: 100%;
-  padding: 12px 15px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-family: 'Vazirmatn', Arial, sans-serif;
-  box-sizing: border-box; /* Important for width calculation */
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-#note-form input[type="text"]:focus,
-#note-form input[type="url"]:focus,
-#note-form textarea:focus {
-  outline: none;
-  border-color: #ff8a65; /* Light coral */
-  box-shadow: 0 0 0 3px rgba(255, 138, 101, 0.25);
-}
-
-#note-form textarea {
-  resize: vertical; /* Allow vertical resize only */
-  min-height: 100px;
-}
-
-#note-form small {
-    font-size: 0.8rem;
-    color: #777;
-    margin-top: 4px;
-}
-
-#note-form button[type="submit"] {
-  background: linear-gradient(45deg, #ff8a65, #ff7043); /* Coral gradient */
-  color: #fff;
-  border: none;
-  padding: 12px 20px;
-  border-radius: 25px; /* Pill shape button */
-  cursor: pointer;
-  font-size: 1.1rem;
-  font-weight: bold;
-  font-family: 'Vazirmatn', Arial, sans-serif;
-  transition: background 0.3s ease, transform 0.2s ease;
-  box-shadow: 0 4px 10px rgba(255, 112, 67, 0.3);
-}
-
-#note-form button[type="submit"]:hover:not(:disabled) {
-  background: linear-gradient(45deg, #ff7043, #e65100); /* Darker coral gradient */
-  transform: translateY(-2px);
-}
-
-#note-form button[type="submit"]:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-  opacity: 0.7;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .note {
-    width: calc(50% - 30px); /* Two notes per row on tablets */
-    min-width: 220px;
-  }
-  .app-title {
-    font-size: 2rem;
-  }
-}
-
-@media (max-width: 480px) {
-  #notes-container {
-    padding: 10px;
-    gap: 15px;
-  }
-  .note {
-    width: calc(100% - 20px); /* One note per row on mobile */
-    margin-left: auto;
-    margin-right: auto;
-  }
-   .form-container {
-    padding: 20px;
-  }
-  .app-title {
-    font-size: 1.8rem;
-  }
-  #note-form button[type="submit"] {
-    padding: 10px 15px;
-    font-size: 1rem;
-  }
+.app-title {
+    font-size: 2.5rem;
+    color: var(--accent-color);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    text-align: center;
 }
