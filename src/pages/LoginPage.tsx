@@ -54,7 +54,7 @@ const LoginPage: React.FC = () => {
               required
             />
           </div>
-          <button type="submit" disabled={loading}>
+          <button type="submit" disabled={loading} className='btn btn-primary'>
             {loading ? 'در حال ورود...' : 'ورود'}
           </button>
         </form>
