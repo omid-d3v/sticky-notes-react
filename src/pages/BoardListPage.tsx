@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { signOut } from 'firebase/auth';
 import { auth } from '../firebase-config';
-import { getBoards } from '../api/noteService'; // We will add getBoards function
+import { getBoards } from '../api/noteService';
 import Footer from '../components/Footer';
 import MessageBox from '../components/MessageBox';
 
@@ -18,8 +18,10 @@ const BoardListPage: React.FC = () => {
   useEffect(() => {
     const fetchBoards = async () => {
       try {
-        const boardIds = await getBoards();
-        setBoards(boardIds);
+        if (auth.currentUser) {
+            const boardIds = await getBoards();
+            setBoards(boardIds);
+        }
       } catch (err: any) {
         setError(err.message);
       } finally {
@@ -48,41 +50,42 @@ const BoardListPage: React.FC = () => {
 
   return (
     <div className="page-container">
-      <div id="current-board-info" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <span>کاربر: {currentUser?.email}</span>
-        <button onClick={handleLogout} style={{ all: 'unset', cursor: 'pointer', color: 'red', fontWeight: 'bold' }}>خروج</button>
+      <div id="current-board-info">
+        <div className="user-info">
+          <span>کاربر: <strong>{currentUser?.email}</strong></span>
+        </div>
+        <button onClick={handleLogout} className="logout-btn">خروج</button>
       </div>
       
       <div className="board-selector-container">
-        <h1 className="section-title">ایجاد تخته جدید</h1>
+        <h2 className="section-title">ایجاد تخته جدید</h2>
         <form onSubmit={handleCreateBoard} id="board-selector-form">
-            <label htmlFor="boardIdInput">شناسه تخته جدید (انگلیسی، بدون فاصله):</label>
-            <div style={{display: 'flex', gap: '10px'}}>
+            <div className="form-group">
+              <label htmlFor="boardIdInput">شناسه تخته جدید (انگلیسی، بدون فاصله):</label>
               <input
                 type="text"
                 id="boardIdInput"
-                style={{flexGrow: 1}}
                 placeholder="مثلا: tavalod-omid-1404"
                 value={newBoardId}
                 onChange={(e) => setNewBoardId(e.target.value)}
               />
-              <button type="submit">ایجاد و مدیریت</button>
             </div>
+            <button type="submit" className="btn btn-primary">ایجاد و مدیریت</button>
         </form>
       </div>
 
       <div id="admin-notes-list-container">
-        <h2 style={{ textAlign: 'center', color: '#3f51b5', marginBottom: '20px' }}>تخته‌های فعال</h2>
+        <h2 className="section-title">تخته‌های فعال</h2>
         {loading && <p style={{textAlign: 'center'}}>در حال بارگذاری لیست تخته‌ها...</p>}
         {error && <MessageBox message={error} type="error" />}
         {!loading && boards.length === 0 && <p style={{textAlign: 'center'}}>هنوز هیچ تخته‌ای ساخته نشده است.</p>}
         <div id="admin-notes-list">
           {boards.map(boardId => (
-            <div key={boardId} className="admin-note-item" style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
-              <span style={{fontWeight: 'bold', fontSize: '1.1rem'}}>{boardId}</span>
+            <div key={boardId} className="admin-note-item">
+              <span className="board-id">{boardId}</span>
               <div className="note-actions">
-                 <Link to={`/board/${boardId}`} target="_blank" className="edit-button" style={{textDecoration:'none', marginLeft: '10px'}}>مشاهده</Link>
-                 <Link to={`/manage/${boardId}`} className="edit-button" style={{textDecoration:'none', backgroundColor: '#5cb85c'}}>مدیریت</Link>
+                 <Link to={`/board/${boardId}`} target="_blank" className="btn action-btn btn-view">مشاهده</Link>
+                 <Link to={`/manage/${boardId}`} className="btn action-btn btn-manage">مدیریت</Link>
               </div>
             </div>
           ))}
