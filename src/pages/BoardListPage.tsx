@@ -6,12 +6,15 @@ import { auth } from '../firebase-config';
 import { getBoards } from '../api/noteService';
 import Footer from '../components/Footer';
 import MessageBox from '../components/MessageBox';
+import BirthdayCardModal from '../components/BirthdayCardModal';
 
 const BoardListPage: React.FC = () => {
   const [boards, setBoards] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [newBoardId, setNewBoardId] = useState('');
+  const [showBirthdayModal, setShowBirthdayModal] = useState(false);
+  const [selectedBoardId, setSelectedBoardId] = useState<string>('');
   const { currentUser } = useAuth();
   const navigate = useNavigate();
 
@@ -46,6 +49,16 @@ const BoardListPage: React.FC = () => {
     } else {
       alert("لطفاً یک شناسه معتبر وارد کنید.");
     }
+  };
+
+  const handleBirthdayCard = (boardId: string) => {
+    setSelectedBoardId(boardId);
+    setShowBirthdayModal(true);
+  };
+
+  const closeBirthdayModal = () => {
+    setShowBirthdayModal(false);
+    setSelectedBoardId('');
   };
 
   return (
@@ -86,12 +99,25 @@ const BoardListPage: React.FC = () => {
               <div className="note-actions">
                  <Link to={`/board/${boardId}`} target="_blank" className="btn action-btn btn-view">مشاهده</Link>
                  <Link to={`/manage/${boardId}`} className="btn action-btn btn-manage">مدیریت</Link>
+                 <button 
+                   onClick={() => handleBirthdayCard(boardId)} 
+                   className="btn action-btn" 
+                   style={{backgroundColor: '#FF69B4', color: 'white'}}
+                 >
+                   کارت تبریک
+                 </button>
               </div>
             </div>
           ))}
         </div>
       </div>
       <Footer/>
+      
+      <BirthdayCardModal 
+        isOpen={showBirthdayModal}
+        boardId={selectedBoardId}
+        onClose={closeBirthdayModal}
+      />
     </div>
   );
 };

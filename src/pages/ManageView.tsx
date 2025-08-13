@@ -10,6 +10,7 @@ import AdminNoteItem from '../components/AdminNoteItem';
 import ConfirmationModal from '../components/ConfirmationModal';
 import MessageBox from '../components/MessageBox';
 import Footer from '../components/Footer';
+import BirthdayCardModal from '../components/BirthdayCardModal';
 
 const ManageView: React.FC = () => {
     const { boardId } = useParams<{ boardId: string }>(); 
@@ -22,6 +23,7 @@ const ManageView: React.FC = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [editingNote, setEditingNote] = useState<NoteType | null>(null);
     const [deletingNote, setDeletingNote] = useState<{id: string; name: string} | null>(null);
+    const [showBirthdayModal, setShowBirthdayModal] = useState(false);
 
     const handleLogout = async () => {
         await signOut(auth);
@@ -83,10 +85,27 @@ const ManageView: React.FC = () => {
         <div className="page-container">
             <div id="current-board-info">
                 <Link to="/manage" style={{fontWeight: 'bold'}}> &larr; بازگشت به لیست تخته‌ها</Link>
-                <div className="user-info">
-                    <span>کاربر: <strong>{currentUser?.email}</strong></span>
+                <div style={{display: 'flex', alignItems: 'center', gap: '10px'}}>
+                    <button 
+                        onClick={() => setShowBirthdayModal(true)}
+                        className="btn"
+                        style={{
+                            backgroundColor: '#FF69B4', 
+                            color: 'white',
+                            padding: '8px 15px',
+                            border: 'none',
+                            borderRadius: '4px',
+                            cursor: 'pointer',
+                            fontSize: '14px'
+                        }}
+                    >
+                        🎂 کارت تبریک
+                    </button>
+                    <div className="user-info">
+                        <span>کاربر: <strong>{currentUser?.email}</strong></span>
+                    </div>
+                    <button onClick={handleLogout} className="logout-btn">خروج</button>
                 </div>
-                <button onClick={handleLogout} className="logout-btn">خروج</button>
             </div>
             
             <ConfirmationModal isOpen={!!deletingNote} message={`آیا از حذف پیام "${deletingNote?.name}" مطمئن هستید؟`} onConfirm={handleConfirmDelete} onCancel={() => setDeletingNote(null)} />
@@ -109,6 +128,12 @@ const ManageView: React.FC = () => {
                 )}
             </div>
             <Footer />
+            
+            <BirthdayCardModal 
+                isOpen={showBirthdayModal}
+                boardId={boardId || ''}
+                onClose={() => setShowBirthdayModal(false)}
+            />
         </div>
     );
 };

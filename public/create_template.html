@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Birthday Card Template Generator</title>
+    <style>
+        .card {
+            width: 594px;
+            height: 840px;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            border: 2px solid #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            position: relative;
+            margin: 20px auto;
+        }
+        .header {
+            margin-top: 60px;
+            text-align: center;
+            color: #333;
+        }
+        .title {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        .subtitle {
+            font-size: 24px;
+            margin-bottom: 40px;
+        }
+        .qr-placeholder {
+            width: 210px;
+            height: 210px;
+            background: white;
+            border: 2px dashed #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 14px;
+            text-align: center;
+            margin-top: 100px;
+        }
+        .footer {
+            position: absolute;
+            bottom: 60px;
+            text-align: center;
+            color: #666;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="header">
+            <div class="title">🎉 تولدت مبارک! 🎂</div>
+            <div class="subtitle">برای دیدن پیام‌های تبریک QR کد را اسکن کنید</div>
+        </div>
+        <div class="qr-placeholder">
+            QR Code
+            <br>
+            محل قرارگیری
+        </div>
+        <div class="footer">
+            با آرزوی سالی پر از شادی و موفقیت
+        </div>
+    </div>
+    
+    <script>
+        // Convert to canvas and download
+        function downloadAsImage() {
+            const card = document.querySelector('.card');
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            canvas.width = 594;
+            canvas.height = 840;
+            
+            // You can implement html2canvas logic here or manually create the image
+            alert('Please take a screenshot or use html2canvas to convert this to an image file named birthcard-template.png');
+        }
+        
+        // Auto download on load (you might want to comment this out)
+        // setTimeout(downloadAsImage, 1000);
+    </script>
+</body>
+</html>

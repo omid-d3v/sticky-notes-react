@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Card Template Generator</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Vazirmatn', sans-serif;
+            background: #f0f0f0;
+        }
+        .card {
+            width: 594px;
+            height: 840px;
+            background: #F5F2E8;
+            position: relative;
+            margin: 20px auto;
+            font-family: 'Vazirmatn', sans-serif;
+            overflow: hidden;
+        }
+        
+        .balloon-left {
+            position: absolute;
+            left: 45px;
+            top: 55px;
+            width: 70px;
+            height: 70px;
+            background: #FFD700;
+            border-radius: 50%;
+            border: 2px solid #E6C200;
+        }
+        
+        .balloon-left::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 100%;
+            width: 2px;
+            height: 120px;
+            background: #666;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        
+        .balloon-right {
+            position: absolute;
+            right: 45px;
+            top: 55px;
+            width: 70px;
+            height: 70px;
+            background: #DC143C;
+            border-radius: 50%;
+            border: 2px solid #B91C3C;
+        }
+        
+        .balloon-right::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 100%;
+            width: 2px;
+            height: 120px;
+            background: #666;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        
+        .main-title {
+            position: absolute;
+            top: 130px;
+            width: 100%;
+            text-align: center;
+            font-size: 32px;
+            font-weight: bold;
+            color: #2C3E50;
+            direction: rtl;
+        }
+        
+        .subtitle {
+            position: absolute;
+            top: 170px;
+            width: 100%;
+            text-align: center;
+            font-size: 22px;
+            color: #2C3E50;
+            direction: rtl;
+        }
+        
+        .poem {
+            position: absolute;
+            top: 260px;
+            width: 100%;
+            text-align: center;
+            font-size: 18px;
+            color: #34495E;
+            direction: rtl;
+            line-height: 1.8;
+        }
+        
+        .description {
+            position: absolute;
+            top: 360px;
+            width: 100%;
+            text-align: center;
+            font-size: 14px;
+            color: #7F8C8D;
+            direction: rtl;
+            line-height: 1.6;
+            padding: 0 40px;
+            box-sizing: border-box;
+        }
+        
+        .qr-placeholder {
+            position: absolute;
+            left: 217px;
+            top: 450px;
+            width: 160px;
+            height: 160px;
+            background: white;
+            border: 1px solid #BDC3C7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #7F8C8D;
+        }
+        
+        .bottom-text {
+            position: absolute;
+            bottom: 120px;
+            width: 100%;
+            text-align: center;
+            font-size: 14px;
+            color: #7F8C8D;
+            direction: rtl;
+        }
+        
+        .generate-btn {
+            margin: 20px auto;
+            display: block;
+            padding: 10px 20px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Vazirmatn', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="card" id="birthday-card">
+        <div class="balloon-left"></div>
+        <div class="balloon-right"></div>
+        
+        <div class="main-title">تی تولد بهاره موفقیتون :(</div>
+        <div class="subtitle">آدم یاد تی تی و شادی آین</div>
+        
+        <div class="poem">
+            تی ویسین آرزو دانم سالی پر از<br>
+            دلخوشی و انطفای قشنگ پی
+        </div>
+        
+        <div class="description">
+            تولدت مثل بهار میمونه، آدم یاد شکوفه و شادی میاره.<br>
+            برات آرزو دارم سالی پر از دلخوشی و انطفای قشنگ باشه.
+        </div>
+        
+        <div class="qr-placeholder">QR کد</div>
+        
+        <div class="bottom-text">کد رو اسکن کن، صفحه رو باز کن.</div>
+    </div>
+    
+    <button class="generate-btn" onclick="generatePNG()">تولید PNG</button>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        async function generatePNG() {
+            const card = document.getElementById('birthday-card');
+            const canvas = await html2canvas(card, {
+                width: 594,
+                height: 840,
+                scale: 2,
+                useCORS: true,
+                allowTaint: true,
+                backgroundColor: '#F5F2E8'
+            });
+            
+            // Download the image
+            const link = document.createElement('a');
+            link.download = 'birthcard-template.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+    </script>
+</body>
+</html>

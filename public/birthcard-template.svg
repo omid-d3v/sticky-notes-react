@@ -1,0 +1,26 @@
+<svg width="594" height="840" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff9a9e;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#fecfef;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fecfef;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="594" height="840" fill="url(#bg-gradient)" stroke="#e0e0e0" stroke-width="2"/>
+  
+  <!-- Title -->
+  <text x="297" y="120" text-anchor="middle" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="#333">🎉 تولدت مبارک! 🎂</text>
+  
+  <!-- Subtitle -->
+  <text x="297" y="180" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" fill="#333">برای دیدن پیام‌های تبریک QR کد را اسکن کنید</text>
+  
+  <!-- QR Code placeholder (white square) -->
+  <rect x="192" y="350" width="210" height="210" fill="white" stroke="#ccc" stroke-width="2" stroke-dasharray="5,5"/>
+  <text x="297" y="445" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#999">QR Code</text>
+  <text x="297" y="465" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#999">محل قرارگیری</text>
+  
+  <!-- Footer -->
+  <text x="297" y="780" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#666">با آرزوی سالی پر از شادی و موفقیت</text>
+</svg>
