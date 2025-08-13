@@ -12,7 +12,7 @@ const TEMPLATE_PATH = "/birthcard-template.png";
 const BASE_WIDTH = 594;
 const BASE_HEIGHT = 840;
 const QR_BOX_OFFSET_X = 217; // Updated for centered QR position
-const QR_BOX_OFFSET_Y = 510; // Updated based on the design  
+const QR_BOX_OFFSET_Y = 518; // Updated based on the design  
 const QR_BOX_SIZE = 160; // Slightly smaller QR size
 const SCALE_FACTOR = 2;
 
